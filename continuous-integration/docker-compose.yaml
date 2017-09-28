@@ -1,0 +1,17 @@
+version: '2'
+services:
+  jenkins:
+    image: jenkins:2.60.3
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    user: root
+    volumes:
+      - ./jenkins/live_home:/var/jenkins_home
+
+
+  nexus:
+    image: sonatype/nexus:2.14.5-02
+    ports:
+      - "8081:8081"
+

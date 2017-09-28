@@ -1,0 +1,12 @@
+1. For jenkins use image jenkins:2.60.3 
+2. For nexus use image sonatype/nexus:2.14.5-02
+3. After start-up, visit jenkins at localhost:8080
+4. Get default admin password from jenkins instance:
+	$ docker exec -ti continuousintegration_jenkins_1 /bin/bash
+	$ cat /var/jenkins_home/secrets/initialAdminPassword
+5. Log into jenkings
+6. Add nexus plugin by follow these instructions: 
+		- https://support.sonatype.com/hc/en-us/articles/227256688-How-do-I-configure-the-Nexus-Jenkins-Plugin 
+		- For nexus credentials use default admin username and password
+		- Use http://nexus:8081/nexus for the server url 
+7. Create jenkins build with CoreServices repo

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="vision" packages="">
+	<properties>
+		<property name="name">core-services</property>
+		<property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5.5p | %-10.10t | %M | %C{1}:%-5.5L | %msg%n</property>
+		<property name="filepath">/opt/tomcat/logs</property>
+	</properties>
+    
+    <Appenders>
+    
+        <Console name="Console">
+            <PatternLayout>
+            	<pattern>${pattern}</pattern>
+            </PatternLayout>
+        </Console>
+	
+		<RollingFile name="RollingFile" fileName="${filepath}/${name}.log" filePattern="${filepath}/${name}-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout>
+				<pattern>${pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB"/>
+			</Policies>
+		</RollingFile>        
+		
+		<File name="CentralFile" filename="${filepath}/coreservices_v1.2.log">
+			<PatternLayout>
+				<pattern>${pattern}</pattern>
+			</PatternLayout>
+		</File>
+    
+    </Appenders>
+    <Loggers>
+		<Root level="all"> 
+			<appender-ref ref="Console"/> 
+			<appender-ref ref="RollingFile"/>
+			<appender-ref ref="CentralFile"/>
+		</Root>
+    </Loggers>
+</Configuration>

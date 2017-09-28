@@ -1,0 +1,13 @@
+Notes:
+
+1. Run vanilla nexus3 on port 8081:
+	$ docker run -d -p 8081:8081 sonatype/nexus3:3.5.2
+
+	An admin user will be created by default: 
+		username: admin
+		password: admin123
+
+2. To test install 
+	$ curl -u admin:admin123 http://localhost:8081/service/metrics/ping
+	curl -u admin:admin123 http://10.10.20.36:8081/service/metrics/ping
+	

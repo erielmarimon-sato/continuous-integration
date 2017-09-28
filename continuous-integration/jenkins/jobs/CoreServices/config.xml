@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/SatoGlobal/CoreServices.git</url>
+        <credentialsId>eriel-sato-git-creds</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/release_v1.2</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean verify -D skipTests</targets>
+      <mavenName>M5</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <injectBuildVariables>false</injectBuildVariables>
+    </hudson.tasks.Maven>
+    <com.sonatype.nexus.ci.nxrm.NexusPublisherBuildStep plugin="nexus-jenkins-plugin@1.1.0-05">
+      <nexusInstanceId>sgs-nexus</nexusInstanceId>
+      <nexusRepositoryId>releases</nexusRepositoryId>
+      <packages>
+        <com.sonatype.nexus.ci.nxrm.MavenPackage>
+          <coordinate>
+            <groupId>com.sgs.vision</groupId>
+            <artifactId>CoreServices</artifactId>
+            <version>1.2</version>
+            <packaging>war</packaging>
+          </coordinate>
+          <assets>
+            <com.sonatype.nexus.ci.nxrm.MavenAsset>
+              <filePath>/var/jenkins_home/workspace/coreservices/CoreServices/target/CoreServices.war</filePath>
+              <classifier/>
+              <extension/>
+            </com.sonatype.nexus.ci.nxrm.MavenAsset>
+          </assets>
+        </com.sonatype.nexus.ci.nxrm.MavenPackage>
+      </packages>
+    </com.sonatype.nexus.ci.nxrm.NexusPublisherBuildStep>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
