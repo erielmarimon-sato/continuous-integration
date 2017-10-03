@@ -1,0 +1,48 @@
+Started by user [8mha:////4JhSXeNUXzs7suKmM6p0yL28/NlNQgZFUcEltr5HYERYAAAAlR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzmEgZO/dLi1CL94vRiAF9G5CW+AAAA[0msgs
+Building in workspace /var/jenkins_home/jobs/CoreServices/workspace
+Cloning the remote Git repository
+Cloning repository https://github.com/SatoGlobal/CoreServices.git
+ > git init /var/jenkins_home/jobs/CoreServices/workspace # timeout=10
+Fetching upstream changes from https://github.com/SatoGlobal/CoreServices.git
+ > git --version # timeout=10
+using GIT_ASKPASS to set credentials Global dev sgs github user
+ > git fetch --tags --progress https://github.com/SatoGlobal/CoreServices.git +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/SatoGlobal/CoreServices.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/SatoGlobal/CoreServices.git # timeout=10
+Fetching upstream changes from https://github.com/SatoGlobal/CoreServices.git
+using GIT_ASKPASS to set credentials Global dev sgs github user
+ > git fetch --tags --progress https://github.com/SatoGlobal/CoreServices.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/release_v1.2^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/release_v1.2^{commit} # timeout=10
+Checking out Revision c1133dcb8f3786a4683397821cbd52e0d0addf1f (refs/remotes/origin/release_v1.2)
+Commit message: "Merge branch 'VPB_Sprint_12->v1.3' into release_v1.2"
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c1133dcb8f3786a4683397821cbd52e0d0addf1f
+First time build. Skipping changelog.
+[workspace] $ mvn clean verify -D skipTests
+FATAL: command execution failed
+[8mha:////4N+l0rJIi0G9I9pubPViWXTrM7339k9PNLlEDG2/j/brAAAAVx+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0mV3NWzufebKBsTA0NFEYMUmgZnCA1SyAABjCCFBQC2xNaiYAAAAA==[0mjava.io.IOException: error=2, No such file or directory
+	at java.lang.UNIXProcess.forkAndExec(Native Method)
+	at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+Caused: java.io.IOException: Cannot run program "mvn" (in directory "/var/jenkins_home/jobs/CoreServices/workspace"): error=2, No such file or directory
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at hudson.Proc$LocalProc.<init>(Proc.java:245)
+	at hudson.Proc$LocalProc.<init>(Proc.java:214)
+	at hudson.Launcher$LocalLauncher.launch(Launcher.java:850)
+	at hudson.Launcher$ProcStarter.start(Launcher.java:384)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:395)
+	at hudson.tasks.Maven.perform(Maven.java:367)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:735)
+	at hudson.model.Build$BuildExecution.build(Build.java:206)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:163)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:490)
+	at hudson.model.Run.execute(Run.java:1735)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+	at hudson.model.ResourceController.execute(ResourceController.java:97)
+	at hudson.model.Executor.run(Executor.java:405)
+Build step 'Invoke top-level Maven targets' marked build as failure
+Finished: FAILURE

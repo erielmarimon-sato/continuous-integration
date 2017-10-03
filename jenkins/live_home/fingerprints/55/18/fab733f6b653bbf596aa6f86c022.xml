@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2017-10-02 20:38:23.724 UTC</timestamp>
+  <md5sum>5518fab733f6b653bbf596aa6f86c022</md5sum>
+  <fileName>Credential id=781e1131-2a80-47bb-b090-f3a7a16b4b4b name=SGS-DEV-READ/****** (Global dev sgs github user)</fileName>
+  <usages>
+    <entry>
+      <string>CoreServices</string>
+      <ranges>1-4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

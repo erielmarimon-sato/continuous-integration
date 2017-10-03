@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/SatoGlobal/CoreServices.git</url>
+        <credentialsId>781e1131-2a80-47bb-b090-f3a7a16b4b4b</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/release_v1.2</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean verify -D skipTests</targets>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <injectBuildVariables>false</injectBuildVariables>
+    </hudson.tasks.Maven>
+    <sp.sd.nexusartifactuploader.NexusArtifactUploader plugin="nexus-artifact-uploader@2.10">
+      <nexusVersion>nexus2</nexusVersion>
+      <protocol>http</protocol>
+      <nexusUrl>localhost:8081</nexusUrl>
+      <groupId>com.sgs.vision</groupId>
+      <version>1.2</version>
+      <repository>Snapshots</repository>
+      <artifacts>
+        <sp.sd.nexusartifactuploader.Artifact>
+          <artifactId>CoreServices</artifactId>
+          <type>war</type>
+          <classifier></classifier>
+          <file>/var/jenkins_home/CoreServices.war</file>
+        </sp.sd.nexusartifactuploader.Artifact>
+      </artifacts>
+      <credentialsId></credentialsId>
+    </sp.sd.nexusartifactuploader.NexusArtifactUploader>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

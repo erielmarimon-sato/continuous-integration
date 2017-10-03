@@ -1,0 +1,399 @@
+<!--
+
+    Copyright (c) 2016-present Sonatype, Inc. All rights reserved.
+    Includes the third-party code listed at http://links.sonatype.com/products/clm/attributions.
+    "Sonatype" is a trademark of Sonatype, Inc.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.sonatype.buildsupport</groupId>
+    <artifactId>private-parent</artifactId>
+    <version>9</version>
+    <relativePath />
+  </parent>
+
+  <groupId>com.sonatype.nexus.ci</groupId>
+  <artifactId>nexus-jenkins-plugin</artifactId>
+  <version>1.1.0-05</version>
+  <packaging>hpi</packaging>
+
+  <name>Nexus Jenkins Plugin</name>
+
+  <properties>
+    <jenkins.version>2.7</jenkins.version>
+    <jenkins-test-harness.version>2.7</jenkins-test-harness.version>
+    <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
+    <jvnet-localizer-plugin.version>1.23</jvnet-localizer-plugin.version>
+    <concurrency>1</concurrency>
+    <java.level>7</java.level>
+    <slf4j.version>1.7.7</slf4j.version>
+  </properties>
+
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.sonatype.nexus</groupId>
+        <artifactId>nexus-java-api</artifactId>
+        <version>1.1.0-01</version>
+        <classifier>internal</classifier>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jenkins-ci.main</groupId>
+        <artifactId>jenkins-core</artifactId>
+        <version>${jenkins.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.4</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>credentials</artifactId>
+        <version>2.1.8</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plain-credentials</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>token-macro</artifactId>
+        <version>1.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jenkins-ci</groupId>
+        <artifactId>symbol-annotation</artifactId>
+        <version>1.5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jenkins-ci.plugins.workflow</groupId>
+        <artifactId>workflow-step-api</artifactId>
+        <version>2.8</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.groovy</groupId>
+        <artifactId>groovy-all</artifactId>
+        <version>2.4.7</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.spockframework</groupId>
+        <artifactId>spock-core</artifactId>
+        <version>1.0-groovy-2.4</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jenkins-ci.main</groupId>
+        <artifactId>jenkins-war</artifactId>
+        <version>${jenkins.version}</version>
+        <type>war</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jenkins-ci.main</groupId>
+        <artifactId>jenkins-war</artifactId>
+        <version>${jenkins.version}</version>
+        <classifier>war-for-test</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.jenkins-ci.main</groupId>
+        <artifactId>jenkins-test-harness</artifactId>
+        <version>${jenkins-test-harness.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib-nodep</artifactId>
+        <version>3.2.4</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.sonatype.nexus</groupId>
+      <artifactId>nexus-java-api</artifactId>
+      <classifier>internal</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-core</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>credentials</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>plain-credentials</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>token-macro</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci</groupId>
+      <artifactId>symbol-annotation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-step-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-war</artifactId>
+      <type>war</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-war</artifactId>
+      <classifier>war-for-test</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-test-harness</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit-dep</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib-nodep</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.objenesis</groupId>
+      <artifactId>objenesis</artifactId>
+      <version>2.4</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codenarc</groupId>
+      <artifactId>CodeNarc</artifactId>
+      <version>0.26.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.gmetrics</groupId>
+      <artifactId>GMetrics</artifactId>
+      <version>0.7</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-job</artifactId>
+      <version>2.9</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-cps</artifactId>
+      <version>2.24</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-basic-steps</artifactId>
+      <version>2.3</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-durable-task-step</artifactId>
+      <version>2.8</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.kohsuke</groupId>
+          <artifactId>access-modifier-checker</artifactId>
+          <version>1.7</version>
+        </plugin>
+        <plugin>
+          <groupId>com.mycila</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <configuration>
+            <excludes>
+              <exclude>**/target/**</exclude>
+              <exclude>**/work/**</exclude>
+              <exclude>**/.*/**</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.jenkins-ci.tools</groupId>
+        <artifactId>maven-hpi-plugin</artifactId>
+        <version>1.119</version>
+        <extensions>true</extensions>
+        <configuration>
+          <compatibleSinceVersion>1.580.1</compatibleSinceVersion>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>${findbugs-maven-plugin.version}</version>
+        <configuration>
+          <effort>Max</effort>
+          <threshold>High</threshold>
+          <xmlOutput>true</xmlOutput>
+          <failOnError>true</failOnError>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jvnet.localizer</groupId>
+        <artifactId>maven-localizer-plugin</artifactId>
+        <version>${jvnet-localizer-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <fileMask>Messages.properties</fileMask>
+              <outputDirectory>target/generated-sources/localizer</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <!-- 2.8.0-01 and later require maven-compiler-plugin 3.1 or higher -->
+        <version>3.1</version>
+        <configuration>
+          <compilerId>groovy-eclipse-compiler</compilerId>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-eclipse-compiler</artifactId>
+            <version>2.9.2-01</version>
+          </dependency>
+          <!-- for 2.8.0-01 and later you must have an explicit dependency on groovy-eclipse-batch -->
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-eclipse-batch</artifactId>
+            <version>2.4.3-01</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+<!--
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <check>
+            <branchRate>0</branchRate>
+            <lineRate>0</lineRate>
+            <haltOnFailure>true</haltOnFailure>
+-->            <!-- IMPORTANT never approve a code review where any of the numbers below have decreased --> <!--
+            <totalBranchRate>54</totalBranchRate>
+            <totalLineRate>71</totalLineRate>
+            <packageBranchRate>61</packageBranchRate>
+            <packageLineRate>78</packageLineRate>
+          </check>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+-->
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>jenkins-1.609</id>
+      <properties>
+        <jenkins.version>1.609</jenkins.version>
+        <jenkins-test-harness.version>1.609</jenkins-test-harness.version>
+      </properties>
+    </profile>
+  </profiles>
+</project>

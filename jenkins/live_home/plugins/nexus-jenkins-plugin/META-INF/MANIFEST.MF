@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: bamboo
+Build-Jdk: 1.8.0_45
+Extension-Name: nexus-jenkins-plugin
+Specification-Title: Nexus Jenkins Plugin
+Specification-Vendor: Sonatype, Inc.
+Implementation-Vendor: Sonatype, Inc.
+Implementation-Title: nexus-jenkins-plugin
+Implementation-Version: 1.1.0-05
+Group-Id: com.sonatype.nexus.ci
+Short-Name: nexus-jenkins-plugin
+Long-Name: Nexus Jenkins Plugin
+Url: http://www.sonatype.com/private-parent/nexus-jenkins-plugin/
+Compatible-Since-Version: 1.580.1
+Plugin-Version: 1.1.0-05
+Hudson-Version: 2.7
+Jenkins-Version: 2.7
+Plugin-Dependencies: credentials:2.1.8,plain-credentials:1.1,token-mac
+ ro:1.11,workflow-step-api:2.8
+Plugin-Developers: Sonatype, Inc.::
+
