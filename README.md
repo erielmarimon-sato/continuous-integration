@@ -1,3 +1,6 @@
+# Overview
+This app will set up a jenkins-nexus environment for continuous integration for SGS RESTful application.
+
 # continuous-integration
 
 Depends on:
